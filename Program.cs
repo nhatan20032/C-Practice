@@ -4,6 +4,7 @@ using CSharpPracice_1.Services;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 Console.InputEncoding = System.Text.Encoding.UTF8;
+
 IProductServices _productServices = new ProductServices();
 
 while (true)
@@ -16,6 +17,7 @@ while (true)
     Console.WriteLine("5. Tìm kiếm sản phẩm theo ID");
     Console.WriteLine("6. Thoát");
     Console.Write("Chọn: ");
+
     var choice = Console.ReadLine();
 
     switch (choice)
@@ -23,16 +25,22 @@ while (true)
         case "1":
             Console.WriteLine("Nhập tên: ");
             var name = Console.ReadLine();
+
             Console.WriteLine("Nhập thể loại: ");
             var category = Console.ReadLine();
+
             Console.WriteLine("Nhập mô tả: ");
             var description = Console.ReadLine();
+
             Console.WriteLine("Nhập giá: ");
             var price = decimal.Parse(Console.ReadLine()!);
+
             Console.WriteLine("Nhập số lượng: ");
             var Quantity = int.Parse(Console.ReadLine()!);
+
             Console.WriteLine("Nhập đường dẫn ảnh : ");
             var Picture = Console.ReadLine();
+
             var product = new Products
             {
                 Name = name!,
@@ -42,76 +50,99 @@ while (true)
                 Quantity = Quantity,
                 ImagePath = Picture
             };
+
+
             _productServices.Create(product);
+
             Console.WriteLine("===============");
             break;
         case "2":
             Console.WriteLine("Nhập ID để xoá sản phẩm: ");
             var idDelete = int.Parse(Console.ReadLine()!);
+
             _productServices.Delete(idDelete);
+
             Console.WriteLine("===============");
             break;
         case "3":
             Console.WriteLine("Nhập ID để có thể sửa: ");
             var idUpdate = int.Parse(Console.ReadLine()!);
+
             Products productUpdate = _productServices.GetById(idUpdate);
+
             if (_productServices.GetById(idUpdate) == null)
             {
                 Console.WriteLine("Không có sản phẩm này");
                 break;
             };
+
             Console.WriteLine("Sửa tên? (Y/N): ");
             var confirm = Console.ReadLine();
+
             if (confirm?.ToUpper() == "Y")
             {
                 Console.WriteLine("Nhập tên mới: ");
                 productUpdate.Name = Console.ReadLine()!;
             }
+
             Console.WriteLine("Sửa mô tả? (Y/N): ");
             confirm = Console.ReadLine();
+
             if (confirm?.ToUpper() == "Y")
             {
                 Console.WriteLine("Nhập mô tả mới: ");
                 productUpdate.Description = Console.ReadLine()!;
             }
+
             Console.WriteLine("Sửa thể loại? (Y/N): ");
             confirm = Console.ReadLine();
+
             if (confirm?.ToUpper() == "Y")
             {
                 Console.WriteLine("Nhập thể loại mới: ");
                 productUpdate.Category = Console.ReadLine()!;
             }
+
             Console.WriteLine("Sửa giá? (Y/N): ");
             confirm = Console.ReadLine();
+
             if (confirm?.ToUpper() == "Y")
             {
                 Console.WriteLine("Nhập giá mới: ");
                 productUpdate.Price = decimal.Parse(Console.ReadLine()!);
             }
+
             Console.WriteLine("Sửa số lượng? (Y/N): ");
             confirm = Console.ReadLine();
+
             if (confirm?.ToUpper() == "Y")
             {
                 Console.WriteLine("Nhập lượng mới: ");
                 productUpdate.Quantity = int.Parse(Console.ReadLine()!);
             }
+
             Console.WriteLine("Sửa ảnh? (Y/N): ");
             confirm = Console.ReadLine();
+
             if (confirm?.ToUpper() == "Y")
             {
                 Console.WriteLine("Nhập ảnh mới: ");
                 productUpdate.ImagePath = Console.ReadLine()!;
             }
+
             _productServices.Update(productUpdate);
+
             Console.WriteLine("===============");
             break;
         case "4":
             Console.WriteLine("Search: ");
             var search = Console.ReadLine();
+
             var obj = _productServices.GetAll(search!);
+
             for (int i = 0; i < obj.Count; i++)
             {
-                Console.WriteLine($"Số thứ tự: {i+1}");
+                Console.WriteLine($"Số thứ tự: {i + 1}");
                 Console.WriteLine($"Tên sản phẩm: {obj[i].Name}");
                 Console.WriteLine($"Mô tả : {obj[i].Description}");
                 Console.WriteLine($"Thể loại : {obj[i].Category}");
@@ -119,17 +150,20 @@ while (true)
                 Console.WriteLine($"Số lượng : {obj[i].Quantity}");
                 Console.WriteLine($"Đường dẫn ảnh : {obj[i].ImagePath}");
                 Console.WriteLine("===============");
-            }            
+            }
             break;
         case "5":
             Console.WriteLine("Nhập ID: ");
             var findById = int.Parse(Console.ReadLine()!);
+
             var productById = _productServices.GetById(findById);
+
             if (productById == null)
             {
                 Console.WriteLine("Không có sản phẩm này");
                 break;
             }
+
             Console.WriteLine($"Tên sản phẩm: {productById.Name}");
             Console.WriteLine($"Mô tả : {productById.Description}");
             Console.WriteLine($"Thể loại : {productById.Category}");

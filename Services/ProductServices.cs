@@ -7,6 +7,7 @@ namespace CSharpPracice_1.Services
     {
         private List<Products> listProducts = new();
         private string storageFolder = Path.Combine(Directory.GetCurrentDirectory(), "product_images");
+
         public ProductServices()
         {
         }
