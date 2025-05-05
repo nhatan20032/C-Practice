@@ -55,7 +55,7 @@ namespace CSharpPracice_1.Services
                 Console.WriteLine($"Đã sảy ra lỗi {ex}");
             }
         }
-
+        
         public void Delete(int id)
         {
             var productDelete = listProducts.FirstOrDefault(p => p.Id == id);
@@ -66,7 +66,11 @@ namespace CSharpPracice_1.Services
 
         public List<Products> GetAll(string search)
         {
-            return string.IsNullOrEmpty(search) ? listProducts : listProducts.Where(t => t.Name.Equals(search, StringComparison.Ordinal) || t.Category.Equals(search, StringComparison.Ordinal)).ToList();
+            return string.IsNullOrWhiteSpace(search)
+                ? listProducts
+                : listProducts.Where(t =>
+                    t.Name.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    t.Category.Contains(search, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public Products GetById(int id)

@@ -32,11 +32,20 @@ while (true)
             Console.WriteLine("Nhập mô tả: ");
             var description = Console.ReadLine();
 
+            decimal price;
+            int quantity;
+
             Console.WriteLine("Nhập giá: ");
-            var price = decimal.Parse(Console.ReadLine()!);
+            while (!decimal.TryParse(Console.ReadLine(), out price))
+            {
+                Console.WriteLine("Giá không hợp lệ. Vui lòng nhập lại:");
+            }
 
             Console.WriteLine("Nhập số lượng: ");
-            var Quantity = int.Parse(Console.ReadLine()!);
+            while (!int.TryParse(Console.ReadLine(), out quantity))
+            {
+                Console.WriteLine("Số lượng không hợp lệ. Vui lòng nhập lại:");
+            }            
 
             Console.WriteLine("Nhập đường dẫn ảnh : ");
             var Picture = Console.ReadLine();
@@ -47,7 +56,7 @@ while (true)
                 Category = category!,
                 Description = description!,
                 Price = price,
-                Quantity = Quantity,
+                Quantity = quantity,
                 ImagePath = Picture
             };
 
