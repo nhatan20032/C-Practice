@@ -8,5 +8,6 @@ namespace CSharpPracice_1.Interfaces
         public void Create(Products products);
         public void Update(Products products);
         public void Delete(int id);
+        public void BubbleSortByName();
     }
 }

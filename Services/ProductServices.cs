@@ -1,5 +1,6 @@
 ﻿using CSharpPracice_1.Entities;
 using CSharpPracice_1.Interfaces;
+using System.Diagnostics;
 
 namespace CSharpPracice_1.Services
 {
@@ -40,7 +41,8 @@ namespace CSharpPracice_1.Services
                 };
 
                 listProducts.Add(product);
-                Console.WriteLine("Product Created");
+
+                Console.WriteLine("\nProduct Created\n");
                 Console.WriteLine($"Id sản phẩm: {product.Id}");
                 Console.WriteLine($"Tên sản phẩm: {product.Name}");
                 Console.WriteLine($"Mô tả sản phẩm: {product.Description}");
@@ -55,7 +57,7 @@ namespace CSharpPracice_1.Services
                 Console.WriteLine($"Đã sảy ra lỗi {ex}");
             }
         }
-        
+
         public void Delete(int id)
         {
             var productDelete = listProducts.FirstOrDefault(p => p.Id == id);
@@ -78,9 +80,50 @@ namespace CSharpPracice_1.Services
             return listProducts.FirstOrDefault(t => t.Id == id) ?? null;
         }
 
+        public void BubbleSortByName()
+        {
+            if (listProducts.Count < 1)
+            {
+                Console.WriteLine("Không có phần tử nào trong mảng để sắp xếp");
+                return;
+            }
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            for (int i = 0; i < listProducts.Count - 1; i++)
+            {
+
+                for (int j = 0; j < listProducts.Count - i - 1; j++)
+                {
+
+                    if (string.Compare(listProducts[j].Name, listProducts[j + 1].Name, StringComparison.OrdinalIgnoreCase) > 0)
+                    {
+                        var temp = listProducts[j];
+                        listProducts[j] = listProducts[j + 1];
+                        listProducts[j + 1] = temp;
+                    }
+
+                }
+
+            }
+
+            stopwatch.Stop();
+
+            Console.WriteLine("Đã bubble sort xong !! \n");
+
+            for (int i = 0; i < listProducts.Count; i++)
+            {
+                Console.WriteLine($"Tên sản phẩm: {listProducts[i].Name}");
+                Console.WriteLine("======================\n");
+            }
+
+            Console.WriteLine($"Thời gian hoàn thành sắp xếp {stopwatch.ElapsedMilliseconds}\n");
+        }
+
         public void Update(Products products)
         {
             var index = listProducts.FindIndex(t => t.Id == products.Id);
+
             if (index == -1)
             {
                 Console.WriteLine("Không tìm thấy sản phẩm để cập nhật.");
